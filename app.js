@@ -6,7 +6,7 @@ const app = express();
 require('dotenv').config()
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 
 const register = require('./src/routes/register_route');
 const login = require('./src/routes/login_route');

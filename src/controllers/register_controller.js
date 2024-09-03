@@ -1,6 +1,6 @@
 'use strict';
 
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 
 
 const User = require('../models/user_model');
@@ -34,7 +34,7 @@ const postRegister = async (req,res) =>{
         const username = generateUsername(name);
         // console.log(username);
 
-        const hashPassword = await bcrypt.hash(password,10);
+        const hashPassword = await bcryptjs.hash(password,10);
         // console.log(password,hashPassword);  
         
         await User.create({name ,email, password: hashPassword, username});

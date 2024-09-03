@@ -1,7 +1,7 @@
 'use strict';
 
 
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const mongoose = require('mongoose');
 
 const User = require('../models/user_model');
@@ -107,13 +107,13 @@ const updatePassword = async (req, res) =>{
             new_password,
         } =  req.body;
         
-        const oldPasswordIsValid = await bcrypt.compare(old_password, currentUser.password);
+        const oldPasswordIsValid = await bcryptjs.compare(old_password, currentUser.password);
         
         if(!oldPasswordIsValid){
             return res.status(400).json({ message: 'Mật khẩu cũ không đúng'});
         }
 
-        const newPassword = await bcrypt.hash(new_password, 10);
+        const newPassword = await bcryptjs.hash(new_password, 10);
         currentUser.password = newPassword;
 
         await currentUser.save();

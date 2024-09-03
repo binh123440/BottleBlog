@@ -1,7 +1,7 @@
 'use strict';
 
 const User = require('../models/user_model')
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 
 /**
  * @param {Object} req 
@@ -31,7 +31,7 @@ const postLogin = async (req, res) =>{
         if(!currentUser){
             return res.status(400).json({message: 'Invalid email !, Please ensure that the email you entered has already used to create an account.'})
         }
-        const passwordIsValid = await bcrypt.compare(password, currentUser.password)
+        const passwordIsValid = await bcryptjs.compare(password, currentUser.password)
         if(!passwordIsValid){
             return res.status(400).json({message: 'Wrong Password !, Please ensure that you entered correct password and try again'})
         }
