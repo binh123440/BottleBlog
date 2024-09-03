@@ -1,6 +1,6 @@
 'use strict';
 
-
+const path = require('path');
 const express = require('express');
 const app = express();
 require('dotenv').config()
@@ -24,6 +24,7 @@ const settings = require('./src/routes/settings_route');
 
 const {connectDB, disconnectDB} = require('./src/config/mongoose_config');
 
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(`${__dirname}/public`))
 app.use(express.urlencoded({ extended: true }));
