@@ -1,0 +1,37 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('../layouts/head', {title: `404 | MyBlog`})  %>
+    <script src="/js/script.js" defer></script>
+</head>
+<body>
+    <%- include('../partials/top_app_bar') %>
+
+
+    <main class="main">
+        <article class="page not-found-page">
+            <div class="container">
+                <h2 class="display-large text-on-surface">
+                    404
+                    <span class="heading-large">
+                        Không tìm thấy trang !
+                    </span>
+                </h2>
+                <p class="body-large text-on-surface-variant text-404">
+                    Trang này không tồn tại hoặc đã bị xóa.
+                    Tôi khuyên bạn nên kiểm tra lại đường dẫn hoặc quay lại trang chủ.
+                </p>
+                <a href="/" class="btn btn-fill">
+                    <p class="label-large">Về trang chủ</p>
+                    <div class="state-"></div>
+                </a>
+            </div>
+        </article>
+    </main>
+
+
+    <%- include('../layouts/footer') %>
+</body>
+</html>

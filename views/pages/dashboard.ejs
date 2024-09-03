@@ -1,0 +1,105 @@
+<% 
+    const{
+        blogs,
+        blogPublished,
+        totalReactions,
+        totalVisits
+    } =   locals.loggedUser;
+ %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('../layouts/head', {title: 'Dashboard | MyBlog'})  %>
+    <script src="/js/script.js" defer></script>
+    <script type="module" src="/js/delete_blog.js" ></script>
+</head>
+<body>
+    <%- include('../partials/top_app_bar') %>
+
+
+    <main class="main">
+        <article class="page Dashboard-page">
+            <div class="container">
+                <h2 class="headline-small page-title text-on-surface">
+                    Dashboard
+                </h2>
+
+                <section class="analytics-list">
+                    <div class="analytics-card">
+                        <div class="analytics-icon-box">
+                            <span class="material-symbols-rounded" aria-hidden="true">
+                                visibility
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="display-medium text-on-surface card-title">
+                                <%= totalVisits.toLocaleString('en-US') %>
+                            </h3>
+                            <p class="title-medium text-on-surface-variant">
+                                Total Visits
+                            </p>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-icon-box">
+                            <span class="material-symbols-rounded" aria-hidden="true">
+                                favorite
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="display-medium text-on-surface card-title">
+                                <%= totalReactions.toLocaleString('en-US') %>
+                            </h3>
+                            <p class="title-medium text-on-surface-variant">
+                                Total Reactions
+                            </p>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-icon-box">
+                            <span class="material-symbols-rounded" aria-hidden="true">
+                                article
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="display-medium text-on-surface card-title">
+                                <%= blogPublished.toLocaleString('en-US') %>
+                            </h3>
+                            <p class="title-medium text-on-surface-variant">
+                                Article Published
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="title-large title text-on-surface">
+                        Posts
+                    </h2>
+                    <div class="post-lists">
+                        <% if(blogs.length){ %>
+                            <% blogs.forEach(blog => { %>
+                                <%- include('../partials/list_item', {
+                                    blog
+                                }) %>
+                            <% }) %>
+                        <% }else{ %>
+                            <div class="list-item">
+                                <p class="text-on-surface-variant body-large">
+                                    Bạn chưa đăng bài viết nào cả. 
+                                </p>
+                            </div>
+                        <% } %>
+                    </div>
+                </section>
+            </div>
+        </article>
+    </main>
+
+
+    <%- include('../layouts/footer') %>
+    <div class="snackbar-wrapper" data-snackbar-wrapper></div>
+</body>
+</html>

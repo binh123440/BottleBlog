@@ -1,0 +1,97 @@
+<%
+    const {
+        profilePhoto:{
+            url: profilePhotoURL = '/images/profilePhoto-default.jpg'
+        } = {},
+        name: profileName,
+        username: profileUsername,
+        bio,
+        blogPublished,
+        createdAt
+    } = locals.profile;
+
+    const compressedProfilePhotoURL = profilePhotoURL?.replace('upload/', 'upload/w_200,h_200,c_fill,q_auto/f_auto/');
+    const nameArray = locals.profile.username.split('-');
+    // console.log(nameArray)
+ %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('../layouts/head', {title: `${profileName} | MyBlog`})  %>
+    <script src="/js/script.js" defer></script>
+</head>
+<body>
+    <%- include('../partials/top_app_bar') %>
+
+
+    <main class="main">
+        <article class="page profile-page">
+            <div class="container">
+                <div class="profile-card">
+                    <figure class="profile-image img-holder">
+                        <img src="<%=compressedProfilePhotoURL%>" width="200" height="200" alt="<%=profileName%>" class="img-cover">
+                    </figure>
+
+                    <div class="profile-content">
+                        <h3 class="title headline-medium text-on-surface">
+                            <%=profileName%>
+                        </h3>
+                        <p class="bio body-large text-on-surface-variant">
+                            <%= bio || 'Không có mô tả' %>
+                        </p>
+                        <div class="profile-meta-list">
+                            <div class="profile-meta-item text-on-surface-variant">
+                                <span class="material-symbols-rounded" aria-hidden="true" >
+                                    calendar_month
+                                </span>
+                                <p class="body-large text-on-surface-variant">
+                                    Gia nhập từ: <%=new Date(createdAt).toLocaleDateString('en-US', {day: '2-digit', month: 'long', year:'numeric'})%>
+                                </p>
+                            </div>
+                            <div class="profile-meta-item text-on-surface-variant">
+                                <span class="material-symbols-rounded" aria-hidden="true" >
+                                    article
+                                </span>
+                                <p class="body-large text-on-surface-variant">
+                                    <%=blogPublished%> bài viết đã đăng
+                                </p>
+                            </div>
+                        </div>
+                        <% if(profileUsername === locals.sessionUser?.username){ %>
+                            <a href="/settings" class="btn filled-tonal">
+                                <span class="material-symbols-rounded" aria-hidden="true">
+                                    edit-square
+                                </span>
+                                <p class="label-large">Edit profile</p>
+                                <div class="state-layer"></div>
+                            </a>
+                            <% } %>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+
+                <div class="blog-list">
+                    <% if(locals.profileBlogs.length){%>
+                        <% locals.profileBlogs.forEach(blog =>{ %>
+                            <%- include('../partials/card',{
+                                blog
+                             }) %>
+
+                        <% }) %>
+                    <% } %>
+                </div>
+
+                <% if(locals.pagination.next || locals.pagination.prev){ %>
+                    <%- include('../partials/pagination') %>
+                <% } %>
+            </div>
+        </article>
+    </main>
+
+
+    <%- include('../layouts/footer') %>
+</body>
+</html>

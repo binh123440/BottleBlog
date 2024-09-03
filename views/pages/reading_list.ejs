@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('../layouts/head', {title: 'Reading List | MyBlog'})  %>
+    <script src="/js/script.js" defer></script>
+</head>
+<body>
+    <%- include('../partials/top_app_bar') %>
+
+
+    <main class="main">
+        <article class="page ">
+            <div class="container">
+                <h2 class="headline-small page-title text-on-surface">
+                    Reading List
+                </h2>
+                <div class="blog-list">
+                    <% if(locals.readingListBlogs.length){ %>
+                        <% locals.readingListBlogs.forEach(blog =>{ %>
+                            <%- include('../partials/card', {blog}) %>
+
+                        <% }) %>
+                    <% }else{ %>
+
+                        <p class="bodu-large text-on-surface-variant">
+                            Bạn chưa thêm bài blog nào vào danh sách đọc của mình
+                        </p>
+
+                    <% } %>
+
+
+                </div>
+                <% if(locals.pagination.next || locals.pagination.prev){ %>
+                    <%- include('../partials/pagination') %>
+                <% } %>
+            </div>
+        </article>
+    </main>
+
+
+    <%- include('../layouts/footer') %>
+</body>
+</html>

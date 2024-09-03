@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('../layouts/head', {title: 'Register | MyBlog'})  %>
+    <script type="module" src="/js/register.js"></script>
+</head>
+<body>
+    <section class="section form-section">
+        <div class="container">
+            <div class="form-card">
+
+                <div class="card-header">
+                    <a href="/" class="logo">
+                        <img src="/images/logo-light.svg" alt="MyBlog" class="light">
+                        <img src="/images/logo-dark.svg" alt="MyBlog" class="dark">
+                    </a>
+
+                    <p class="body-large text-on-surface-variant">
+                        Join the MyBlog community
+                    </p>
+                </div>
+
+                <form action="" class="form" data-form>
+                    <div class="text-field-wrapper">
+                        <label for="" class="body-large label">Full Name</label>
+                        <input type="text" name="name" id="name" autocomplete="name" 
+                        autofocus placeholder="   " required class="body-large text-field">
+                    </div>
+                    <div class="text-field-wrapper">
+                        <label for="" class="body-large label">Email</label>
+                        <input type="text" name="email" id="email" autocomplete="email" 
+                         placeholder=" " required class="body-large text-field">
+                    </div>
+                    <div class="text-field-wrapper">
+                        <label for="password" class="body-large label">Password</label>
+                        <input type="password" name="password" minlength="8" id="password"  
+                         placeholder=" " required class="body-large text-field">
+                    </div>
+                    <div class="text-field-wrapper">
+                        <label for="confirm-password" class="body-large label">Confirm Password</label>
+                        <input type="password" name="confirm-password" id="confirm-password"  
+                         placeholder=" " required class="body-large text-field">
+                    </div>
+                    <button type="submit" class="btn btn-fill" data-submit-btn>
+                        <p class="label-large">Sign Up</p>
+                        <div class="state-layer"></div>
+                    </button>
+                </form>
+
+                <div class="card-footer">
+                    <p class="label-large"> Already have an account ?</p>
+                    <a href="/login" class="label-large text-primary" > Sign In</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="snackbar-wrapper" data-snackbar-wrapper>
+        
+    </div>
+</body>
+</html>

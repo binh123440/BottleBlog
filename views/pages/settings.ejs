@@ -1,0 +1,155 @@
+<% 
+    const{
+        profilePhoto: {
+            url: profilePhotoURL
+        } = {},
+        name,
+        username,
+        email,
+        bio
+    } = locals.currentUser
+
+    const compressedProfilePhotoURL = profilePhotoURL?.replace('upload/', 'upload/w_200,h_200,c_auto/q_auto/f_auto/');
+
+ %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('../layouts/head', {title: 'Settings | MyBlog'})  %>
+    <script src="/js/script.js" defer></script>
+    <script type="module"  src="/js/settings.js" defer></script>
+
+</head>
+<body>
+    <%- include('../partials/top_app_bar') %>
+
+
+    <main class="main">
+        <article class="page settings-page">
+            <div class="container">
+                <h2 class="headline-small page-title text-on-surface">
+                    Settings
+                </h2>
+                <div class="settings-wrapper">
+                    <div class="settings-card">
+                        <form action="" class="settings-form" data-basic-info-form>
+                            <div class="title-wrapper">
+                                <h3 class="headline-small text-on-surface">
+                                    Basic info
+                                </h3>
+                                <button class="btn filled-tonal" data-basic-info-submit>
+                                    <p class="label-large">Save changes</p>
+                                    <div class="state-layer"></div>
+                                </button>
+                            </div>
+                            <p class="body-large text-on-surface-variant">
+                                Profile photo
+                            </p>
+                            <div class="image-field-wrapper avatar-image-field">
+                                <label for="profilePhoto" class="label label-large-text-on-surface-variant">
+                                    <input type="file" name="profilePhoto" id="profilePhoto" accept="image/png, image/jpg, image/jpeg" data-image-field>
+                                    <span class="material-symbols-rounded leading-icon">
+                                        cloud_upload
+                                    </span>
+
+                                    Upload photo
+                                </label>
+                                <% if(compressedProfilePhotoURL){ %>
+                                    <div class="image-preview show" data-image-preview>
+                                        <img src="<%=compressedProfilePhotoURL%>" alt="<%= name %>" width="200" height="200" class="img-cover">
+                                    </div>
+
+                                <% }else{ %>
+                                    <div class="image-preview" data-image-preview></div>
+                                <% } %>
+                                <button type="button" class="icon-btn filled-tonal" data-image-preview-clear>
+                                    <span class="material-symbols-rounded">
+                                        delete
+                                    </span>
+                                    <div class="state-layer"></div>
+                                </button>
+                            </div>
+                            <div class="wrapper">
+                                <div class="text-field-wrapper">
+                                    <label for="name" class="label body-large">
+                                        Full Name
+                                    </label>
+                                    <input type="text" name="name" id="name" autocomplete="name" placeholder="" value="<%=name%>" required class="body-large text-field">
+                                </div>
+                                <div class="text-field-wrapper">
+                                    <label for="username" class="label body-large">
+                                        Username
+                                    </label>
+                                    <input type="text" name="username" id="username" autocomplete="username" placeholder="" value="<%=username%>" required class="body-large text-field">
+                                </div>
+                                <div class="text-field-wrapper">
+                                    <label for="email" class="label body-large">
+                                        Email address
+                                    </label>
+                                    <input type="email" name="email" id="email" autocomplete="email" placeholder=" " value="<%=email%>" required class="body-large text-field">
+                                </div>
+                                <div class="text-field-wrapper">
+                                    <label for="bio" class="label body-large">
+                                        Short Bio
+                                    </label>
+                                    <input type="text" name="bio" id="bio" autocomplete="bio" placeholder=" " value="<%=bio%>" max-length="120" class="body-large text-field">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="settings-card">
+                        <form action="" class="settings-form" data-password-form>
+                            <div class="title-wrapper">
+                                <h3 class="headline-small text-on-surface">
+                                    Change password
+                                </h3>
+                                <button type="submit" class="btn filled-tonal" data-password-submit>
+                                    <p class="label-large">Save changes</p>
+                                    <div class="state-layer"></div>
+                                </button>
+                            </div>
+                                <div class="text-field-wrapper">
+                                    <label for="old_password" class="label body-large">
+                                        Old password
+                                    </label>
+                                    <input type="password" name="old_password" id="old_password" autocomplete="old_password" placeholder="" required class="body-large text-field">
+                                </div>
+                                <div class="text-field-wrapper">
+                                    <label for="new_password" class="label body-large">
+                                        New password
+                                    </label>
+                                    <input type="password" name="new_password" id="new_password" autocomplete="new_password" placeholder="" minlength="8" required class="body-large text-field">
+                                </div>
+                                <div class="text-field-wrapper">
+                                    <label for="confirm_password" class="label body-large">
+                                        Confirm password
+                                    </label>
+                                    <input type="password" name="confirm_password" id="confirm_password" autocomplete="confirm_password" placeholder="" required class="body-large text-field">
+                                </div>
+                        </form>
+                    </div>
+                    <div class="settings-card">
+                        <h3 class="headline-small text-error">
+                            Delete account
+                        </h3>
+                        <p class="body-large text-on-surface-variant card-text">
+                            Xóa tài khoản trên MyBlog sẽ xóa tất cả dữ liệu của bạn. Hành động này không thể hoàn tác.
+                        </p>
+                        <button class="btn btn-fill error" data-account-delete>
+                            <p class="label-large">Xóa tài khoản của bạn</p>
+                            <div class="state-layer"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+
+    <%- include('../layouts/footer') %>
+
+    <div class="snackbar-wrapper" data-snackbar-wrapper>
+</body>
+</html>

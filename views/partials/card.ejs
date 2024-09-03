@@ -1,0 +1,101 @@
+<%
+    // console.log(locals.blog); 
+
+    const{
+        _id: blogId,
+        banner:{
+            url: bannerURL,
+        } = {},
+        title,
+        owner:{
+            name,
+            username,
+            profilePhoto:{
+                url: profilePhotoURL
+            } = {}
+        },
+        createdAt,
+        readingTime,
+        reaction,
+        totalBookmark
+    } = locals.blog;
+
+    /**
+     * Nén hình ảnh banner bằng API biến đổi URL của cloudinary
+     * URL gốc có chứa 'upload/', và sẽ được thay thế bằng 'upload/w_360,h_155,c_auto/q_auto/f_auto/'
+     * 
+     * Mỗi tham số trong URL mới thiết lâp một dạng biến đổi khác nhau:
+     * *- 'w_360': Thiết lập chiều rộng của ảnh thành 360 px
+     * *- 'h_155': Thiết lập chiều cao của ảnh thành 155 px
+     * *- 'c_auto': Tự động chọn chế độ cắt xén ảnh (crop) sao cho phù hơp với không gian đã được cho trước
+     * *- 'q_auto': Tự động tùy chỉnh chất lượng ảnh để cân bằng giữa chất lượng và dung lượng ảnh
+     * *- 'f_auto': Tự dộng chọn định dạng ảnh tốt nhất dựa trên yêu cầu về độ tương thích của trình duyệt
+     * (ví dụ: định dạng WebP để cho trình duyệt có thể hỗ trợ hiển thị ảnh)
+    */
+    
+    const compressedBannerURL = bannerURL?.replace('upload/', 'upload/w_360,h_155,c_auto/q_auto/f_auto/');
+    const compressedProfilePhotoURL = profilePhotoURL?.replace('upload/', 'upload/w_40,h_40,c_fill,q_auto/f_auto/');
+    // console.log(bannerURL);
+    // console.log(compressedProfilePhotoURL);
+    const nameArray = locals.blog.owner.username.split('-');
+    // console.log(nameArray); 
+ %>
+<div class="card">
+    <% if(compressedBannerURL){ 
+        
+    %>
+        <figure class="card-banner img-holder">
+            <img src="<%=compressedBannerURL%>" width="360" height="155" alt="<%=title%>" class="img-cover">
+        </figure>
+    <% } %>
+    <div class="card-content">
+        <div class="card-meta">
+            <div class="avatar">
+                <%if(compressedProfilePhotoURL){ %>
+                    <img src="<%=compressedProfilePhotoURL%>" width="32" height="32" alt="<%=name%>" class="img-cover">
+                <%}else{%>
+                    <p class="title-meidum">
+                        <%=name.at()%>
+                    </p>
+                <%}%>
+            </div>
+            <div>
+                <p class="label-large text-on-surface">
+                    <%=name%>
+                </p>
+                <p class="body-small text-on-surface-variant">
+                    <%=new Date(createdAt).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: '2-digit'})%>
+                </p>
+            </div>
+
+            <p class="label-small text-on-surface-variant trailing-text">
+                <%= readingTime %> min read
+            </p>
+        </div>
+
+        <h3 class="card-title title-medium text-on-surface">
+            <%=title%>
+        </h3>
+    </div>
+
+    <div class="card-footer">
+        <div class="wrapper">
+            <span class="icon-small material-symbols-rounded text-on-surface-variant">
+                favorite
+            </span>
+            <p class="body-medium text-on-surface-variant">
+                <%=reaction%> Reaction
+            </p>
+        </div>
+        <div class="wrapper">
+            <span class="icon-small material-symbols-rounded text-on-surface-variant">
+                bookmark
+            </span>
+            <p class="body-medium text-on-surface-variant">
+                <%=totalBookmark%> Bookmarks
+            </p>
+        </div>
+    </div>
+    <a href="/blogs/<%=blogId%>" title="<%=title%>" class="card-link"></a>
+    <div class="state-layer"></div>
+</div>
